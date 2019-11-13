@@ -4,7 +4,51 @@ const db = wx.cloud.database()
 Page({
   data: {
     height: 0,
-    tabList: ['华南', '华中', '华北', '华东', '西南', '西北', '东北', '其他'],
+    tabList: [{
+      value: 'one',
+      id: 1,
+      name: '华南',
+      list: []
+    }, {
+      value: 'two',
+      id: 2,
+      name: '华中',
+      list: []
+    }, {
+      value: 'three',
+      id: 3,
+      name: '华北',
+      list: []
+    }, {
+      value: 'four',
+      id: 4,
+      name: '华东',
+      list: []
+    }, {
+      value: 'five',
+      id: 5,
+      name: '西南',
+      list: []
+    }, {
+      value: 'six',
+      id: 6,
+      name: '西北',
+      list: []
+    }, {
+      value: 'seven',
+      id: 7,
+      name: '东北',
+      list: []
+    }, {
+      value: 'eight',
+      id: 8,
+      name: '其他',
+      list: []
+    }, {
+      value: 'nine',
+      id: 9,
+      name: '管理'
+    }],
     tagList: [{
       south: [],
       central: [],
@@ -18,7 +62,7 @@ Page({
     uniList: [],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     scrollTop: 100,
-    curIndex: 1,
+    curTabIndex: 1,
     toView: '',
     listsHeight: [],
     unitPx: 0.5,
@@ -107,9 +151,11 @@ Page({
       others: []
     }]
     var uniList = new Object()
-    db.collection('control').doc('uni-tag').get({
+    var uniListLength
+    let that = this
+    db.collection('control').doc('university').get({
       success: function(res) {
-        console.log('查询标签成功', res)
+        console.log('查询成功', res)
         tagList.central = res.central
         tagList.east = res.east
         tagList.north = res.north
@@ -118,37 +164,52 @@ Page({
         tagList.others = res.others
         tagList.south = res.south
         tagList.southwest = res.southwest
-      },
-      fail: function(res) {
-        console.log('查询标签失败', res)
-      }
-    })
-    db.collection('control').doc('uni-items').get({
-      success: function(res) {
-        console.log('查询列表成功', res, 'length:', res.data.length)
-        for(let i=1;i<=res.data.length;i++){
-          uniList[i] = res.data[i]
+        uniListLength = res.data.uniItems.length
+        for (let i = 0; i < res.data.uniItems.length; i++) {
+          uniList[i] = res.data.uniItems[i]
+          if (i == res.data.uniItems.length - 1) {
+            that.setData({
+              tagList: tagList,
+              uniList: uniList,
+              uniListLength: uniListLength
+            })
+          }
         }
       },
       fail: function(res) {
-        console.log('查询列表失败', res)
+        console.log('查询失败', res)
       }
     })
-    this.setData({
-      tagList:tagList,
-      uniList:uniList
+  },
+  /**
+   * 打开二维码图片
+   */
+  toQRCode: function(e) {
+    wx.previewImage({
+      urls: ['../../components/chatroom/photo.png'],
+      success: function() {
+        wx.showToast({
+          title: '长按保存图片',
+          duration: 2000
+        })
+      }
     })
   },
-
+  /**
+   * 切换类别
+   */
   switchTab: function(e) {
+    console.log('切换类别', e)
     this.setData({
-      curIndex: e.target.dataset.id,
+      curTabIndex: e.target.dataset.id,
       toView: e.target.dataset.value
     })
   },
-
+  /**
+   * 右边列表滚动时触发函数
+   */
   scroll: function(e) {
-    console.log(e.detail.scrollTop);
+    console.log('列表滚动', e);
     var heights = this.data.listsHeight;
     var tempValue, tempId;
     for (var i in heights) {
@@ -158,7 +219,7 @@ Page({
       }
     }
     this.setData({
-      curIndex: tempId,
+      curTabIndex: tempId,
       toViewLeft: tempValue
     });
   },
@@ -175,6 +236,6 @@ Page({
     }
     console.log(arr);
     return arr;
-  }
+  },
 
 })

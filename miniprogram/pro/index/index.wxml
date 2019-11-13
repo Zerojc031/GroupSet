@@ -1,12 +1,15 @@
 <view class="">
+  <view>
+
+  </view>
   <view class="menu-container" style="height: {{height}}px;">
     <scroll-view class="menu-left" scroll-y style="height: 100%;" scroll-into-view="{{toViewLeft}}" scroll-top="{{scrollTop}}">
-      <view id="{{item.value}}" wx:for="{{tabList}}" data-id="" data-value="{{item.value}}" bindtap="switchTab" class="menu-left-item activity-menu">{{item}}</view>
+      <view id="{{item.id}}" wx:for="{{tabList}}" data-id="{{item.id}}" data-value="{{item.value}}" bindtap="switchTab" class="menu-left-item {{curTabIndex === item.id?'activity-menu':''}}">{{item.name}}</view>
     </scroll-view>
 
-    <scroll-view class="menu-right" style="height: 100%;" scroll-into-view="{{toView}}" scroll-y bindscroll="scroll">
-      <view id="" wx:for="{{tabList}}">
-        <view class="menu-detail-header">{{item}}地区</view>
+    <scroll-view class="menu-right" style="height: 100%;" scroll-into-view="{{toView}}" scroll-y bindscroll="scroll" scroll-with-animation enable-back-to-top>
+      <view id="" wx:for="{{tabList}}" bindtap="toQRCode">
+        <view class="menu-detail-header">{{item.name}}地区</view>
         <view wx:for="{{uniList}}" class="menu-detail-list">
           <view class="menu-detail">
             <view>
@@ -16,7 +19,7 @@
               <view class="menu-detail-title">{{item.name}}</view>
               <view class="menu-detail-intro">985 211 双一流</view>
               <view class="menu-detail-cost">
-                <text class="text-red">广东广州</text> </view>
+                <text class="text-red">{{item.province}}{{item.city}}</text> </view>
             </view>
           </view>
         </view>
