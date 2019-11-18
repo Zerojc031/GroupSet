@@ -4,11 +4,11 @@
   </view>
   <view class="menu-container" style="height: {{height}}px;">
     <scroll-view class="menu-left" scroll-y style="height: 100%;" scroll-into-view="{{toViewLeft}}" scroll-top="{{scrollTop}}">
-      <view id="{{item.id}}" wx:for="{{tabList}}" data-id="{{item.id}}" data-value="{{item.value}}" bindtap="switchTab" class="menu-left-item {{curTabIndex === item.id?'activity-menu':''}}">{{item.name}}</view>
+      <view id="{{item.value}}" wx:for="{{tabList}}" data-id="{{item.id}}" data-value="{{item.value}}" bindtap="switchTab" class="menu-left-item {{curTabIndex === item.id?'activity-menu':''}}">{{item.name}}</view>
     </scroll-view>
 
     <scroll-view class="menu-right" style="height: 100%;" scroll-into-view="{{toView}}" scroll-y bindscroll="scroll" scroll-with-animation enable-back-to-top>
-      <view id="" wx:for="{{tabList}}" bindtap="toQRCode">
+      <view id="{{item.value}}" wx:for="{{tabList}}" bindtap="toQRCode">
         <view class="menu-detail-header">{{item.name}}地区</view>
         <view wx:for="{{uniList}}" class="menu-detail-list">
           <view class="menu-detail">

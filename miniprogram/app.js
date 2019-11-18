@@ -1,6 +1,5 @@
 //app.js
 App({
-
   globalData: {
     userInfo: null,
   },
@@ -20,7 +19,6 @@ App({
         }
       })
     }
-
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {

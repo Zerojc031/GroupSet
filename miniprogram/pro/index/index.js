@@ -3,7 +3,6 @@ const db = wx.cloud.database()
 
 Page({
   data: {
-    height: 0,
     tabList: [{
       value: 'one',
       id: 1,
@@ -44,10 +43,6 @@ Page({
       id: 8,
       name: '其他',
       list: []
-    }, {
-      value: 'nine',
-      id: 9,
-      name: '管理'
     }],
     tagList: [{
       south: [],
@@ -61,9 +56,10 @@ Page({
     }],
     uniList: [],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    scrollTop: 100,
+    height: 0,
     curTabIndex: 1,
     toView: '',
+    scrollTop: 100,
     listsHeight: [],
     unitPx: 0.5,
     toViewLeft: ''
@@ -222,6 +218,11 @@ Page({
       curTabIndex: tempId,
       toViewLeft: tempValue
     });
+  },
+  toSighup: function() {
+    wx.navigateTo({
+      url: '../sighup/sighup',
+    })
   },
 
   getListHeight: function(arr, unit) {
