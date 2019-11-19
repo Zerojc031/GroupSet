@@ -44,10 +44,13 @@ Page({
       wechatID: null,
       tag: null,
       province: null,
-      src: '',
-      times:null,
+      src: null,
+      times: null,
+      isShowQRCode: null,
     }],
-    isDone: true,
+    hasUserInfo:false,
+    isDone: true, //是否注册过
+    isShowQRCode: false, //是否提交二维码
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
 
@@ -73,20 +76,47 @@ Page({
           db.collection('university').doc(app.globalData.openid).get({
             success: function(event) {
               console.log('查询成功', event.data)
-              that.data.submit.name=event.data.name
-              that.data.submit.province=event.data.province
-              that.data.submit.tag=event.data.tag
-              that.data.submit.src=event.data.src
-              that.data.submit.wechatID=event.data.wechatID
-              that.data.submit.times=event.data.times
+              that.data.submit.name = event.data.name
+              that.data.submit.province = event.data.province
+              that.data.submit.tag = event.data.tag
+              if (event.data.src) that.data.submit.src = event.data.src
+              that.data.submit.wechatID = event.data.wechatID
+              that.data.submit.times = event.data.times
+              that.data.submit.isShowQRCode = event.data.isShowQRCode
+              that.setData({
+                isShowQRCode: event.data.isShowQRCode
+              })
             },
             fail: function(event) {
               that.data.isDone = false
+              that.data.submit.isShowQRCode = false
+              that.data.submit.times = 1
             }
           })
         },
         fail: err => {
           console.error('[云函数] [login] 调用失败', err)
+        }
+      })
+    } else {
+      db.collection('university').doc(app.globalData.openid).get({
+        success: function(event) {
+          console.log('查询成功', event.data)
+          that.data.submit.name = event.data.name
+          that.data.submit.province = event.data.province
+          that.data.submit.tag = event.data.tag
+          if (event.data.src) that.data.submit.src = event.data.src
+          that.data.submit.wechatID = event.data.wechatID
+          that.data.submit.times = event.data.times
+          that.data.submit.isShowQRCode = event.data.isShowQRCode
+          that.setData({
+            isShowQRCode: event.data.isShowQRCode
+          })
+        },
+        fail: function(event) {
+          that.data.isDone = false
+          that.data.submit.isShowQRCode = false
+          that.data.submit.times = 1
         }
       })
     }
@@ -117,6 +147,15 @@ Page({
       })
     }
   },
+  getUserInfo:function(e){
+    if (e.detail.userInfo) {
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+    }
+  },
   bindNameInput: function(e) {
     this.data.submit.name = e.detail.value
   },
@@ -129,42 +168,61 @@ Page({
   bindProvinceInput: function(e) {
     this.data.submit.province = e.detail.value
   },
-  upLoadQRCode: function(e) {
-      var that = this
-      wx.chooseImage({
-        count: 1,
-        sizeType: 'compressed',
-        sourceType: 'album',
-        success: function(res) {
-          let cloudPathID = 'university/' + app.globalData.openid + '.png'
-          wx.cloud.uploadFile({
-            cloudPath: cloudPathID,
-            filePath: res.tempFilePaths[0],
-            success: function(event) {
-              console.log('上传图片成功', res.tempFilePaths[0])
-              that.data.submit.src = event.fileID
-              wx.showToast({
-                title: '上传成功',
-                duration: 3000,
-              })
-            },
-            fail: function(event) {
-              console.log('上传图片失败', event)
-              wx.showToast({
-                title: '失败请重新上传',
-                icon: 'none',
-                duration: 3000,
-              })
-            }
-          })
-        },
+  bindSwitchChange: function(e) {
+    if (this.data.isShowQRCode == true) {
+      this.data.submit.isShowQRCode = false
+      this.setData({
+        isShowQRCode: false
       })
+    } else if (this.data.isShowQRCode == false) {
+      this.data.submit.isShowQRCode = true
+      this.setData({
+        isShowQRCode: true
+      })
+    }
+  },
+  upLoadQRCode: function(e) {
+    var that = this
+    wx.chooseImage({
+      count: 1,
+      sizeType: 'compressed',
+      // sourceType: 'album',
+      success: function(res) {
+        let cloudPathID = 'university/' + app.globalData.openid + '.png'
+        wx.cloud.uploadFile({
+          cloudPath: cloudPathID,
+          filePath: res.tempFilePaths[0],
+          success: function(event) {
+            console.log('上传图片成功', res.tempFilePaths[0])
+            that.data.submit.src = event.fileID
+            wx.showToast({
+              title: '上传成功',
+              duration: 3000,
+            })
+          },
+          fail: function(event) {
+            console.log('上传图片失败', event)
+            wx.showToast({
+              title: '失败请重新上传',
+              icon: 'none',
+              duration: 3000,
+            })
+          }
+        })
+      },
+    })
   },
   submit: function() {
     console.log('submit', this.data.submit)
-    if (this.data.submit.wechatID == null || this.data.submit.province == null || this.data.submit.name == null || this.data.submit.tag == null || this.data.submit.src == null) {
+    if (this.data.submit.wechatID == null || this.data.submit.province == null || this.data.submit.name == null || this.data.submit.tag == null) {
       wx.showToast({
         title: '请填写所有信息',
+        icon: 'none',
+        duration: 2000,
+      })
+    } else if (this.data.submit.isShowQRCode == true && this.data.submit.src == null) {
+      wx.showToast({
+        title: '请上传二维码',
         icon: 'none',
         duration: 2000,
       })
@@ -187,13 +245,19 @@ Page({
                   tag: that.data.submit.tag,
                   province: that.data.submit.province,
                   src: that.data.submit.src,
-                  times: that.data.submit.times+1,
+                  times: 1,
+                  isShowQRCode: that.data.submit.isShowQRCode
                 },
                 success: function(event) {
                   console.log('提交成功', event)
                   wx.showToast({
                     title: '提交成功',
                     duration: 2500,
+                    complete: function() {
+                      wx.redirectTo({
+                        url: 'sighup',
+                      })
+                    }
                   })
                 },
                 fail: function(event) {
@@ -213,13 +277,19 @@ Page({
                   tag: that.data.submit.tag,
                   province: that.data.submit.province,
                   src: that.data.submit.src,
-                  times: 1,
+                  times: that.data.submit.times + 1,
+                  isShowQRCode: that.data.submit.isShowQRCode
                 },
                 success: function(event) {
                   console.log('提交成功', event)
                   wx.showToast({
                     title: '提交成功',
                     duration: 2500,
+                    complete: function() {
+                      wx.redirectTo({
+                        url: 'sighup',
+                      })
+                    }
                   })
                 },
                 fail: function(event) {

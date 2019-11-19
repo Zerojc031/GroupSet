@@ -5,6 +5,7 @@
   <view class="menu-container" style="height: {{height}}px;">
     <scroll-view class="menu-left" scroll-y style="height: 100%;" scroll-into-view="{{toViewLeft}}" scroll-top="{{scrollTop}}">
       <view id="{{item.value}}" wx:for="{{tabList}}" data-id="{{item.id}}" data-value="{{item.value}}" bindtap="switchTab" class="menu-left-item {{curTabIndex === item.id?'activity-menu':''}}">{{item.name}}</view>
+      <view class="menu-left-item" bindtap="toSighup">管理</view>
     </scroll-view>
 
     <scroll-view class="menu-right" style="height: 100%;" scroll-into-view="{{toView}}" scroll-y bindscroll="scroll" scroll-with-animation enable-back-to-top>

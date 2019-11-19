@@ -1,4 +1,8 @@
-<view>
+<view wx:if="{{hasUserInfo==false}}">
+  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像昵称</button>
+</view>
+
+<view wx:if="{{hasUserInfo==true}}">
   <view>负责人注册页面</view>
   <view>
     <input placeholder="输入大学完整名字" bindinput="bindNameInput"></input>
@@ -17,7 +21,9 @@
     <input placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
     <text>填写格式：广东、广西、上海、香港，不用写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</text>
   </view>
-  <view>
+  <text>显示二维码</text>
+  <switch checked="{{isShowQRCode}}" bindchange="bindSwitchChange"></switch>
+  <view wx:if="{{isShowQRCode==true}}">
     <button bindtap="upLoadQRCode">上传二维码</button>
   </view>
   <view>
