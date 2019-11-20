@@ -1,6 +1,6 @@
 <view class="">
   <view>
-
+  <!-- 搜索框 -->
   </view>
   <view class="menu-container" style="height: {{height}}px;">
     <scroll-view class="menu-left" scroll-y style="height: 100%;" scroll-into-view="{{toViewLeft}}" scroll-top="{{scrollTop}}">

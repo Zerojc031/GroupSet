@@ -220,9 +220,14 @@ Page({
     });
   },
   toSighup: function() {
-    wx.navigateTo({
+    if (app.globalData.openid =='ox8QE5mHoAOyo8Vc_CMKcjl9rciM'){
+      wx.navigateTo({
+        url: '../manage/manage',
+      })
+    } else 
+   { wx.navigateTo({
       url: '../sighup/sighup',
-    })
+    })}
   },
 
   getListHeight: function(arr, unit) {

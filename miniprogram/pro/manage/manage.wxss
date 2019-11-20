@@ -1,1 +1,3 @@
-/* pro/manage/manage.wxss */
+.items{
+  margin-top:10px 
+}

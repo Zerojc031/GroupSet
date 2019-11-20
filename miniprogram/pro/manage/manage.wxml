@@ -1,2 +1,16 @@
-<!--pro/manage/manage.wxml-->
-<text>pro/manage/manage.wxml</text>
+<view>
+  <view>特级管理界面</view>
+  <button bindtap="check">更新</button>
+  <view id="{{index}}"  wx:for="{{arr}}" data-id="{{index}}" data-value="{{item._openid}}" class="items" bindlongpress="manage">
+    <view>{{item.name}} {{item.tag}} {{item.province}}</view>
+    <view>wxid:{{item.wechatID}}</view>
+    <view>openid:{{item._openid}}</view>
+    <view>src:{{item.isShowQRCode}} times:{{item.times}}</view>
+    <!-- <view>
+      <button wx:if="{{item.isOnShow==false}}" bindtap="show">发布</button>
+      <button wx:else bindtap="hide">撤下</button>
+      <button wx:if="{{item.isShowQRCode==false}}" bindtap="showID">显示微信号</button>
+      <button wx:else bindtap="hideID">显示二维码</button>
+    </view> -->
+  </view>
+</view>

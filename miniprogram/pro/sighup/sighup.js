@@ -48,7 +48,7 @@ Page({
       times: null,
       isShowQRCode: null,
     }],
-    hasUserInfo:false,
+    hasUserInfo: false,
     isDone: true, //是否注册过
     isShowQRCode: false, //是否提交二维码
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -83,6 +83,7 @@ Page({
               that.data.submit.wechatID = event.data.wechatID
               that.data.submit.times = event.data.times
               that.data.submit.isShowQRCode = event.data.isShowQRCode
+              that.data.submit.isOnShow = event.data.isOnShow
               that.setData({
                 isShowQRCode: event.data.isShowQRCode
               })
@@ -109,6 +110,7 @@ Page({
           that.data.submit.wechatID = event.data.wechatID
           that.data.submit.times = event.data.times
           that.data.submit.isShowQRCode = event.data.isShowQRCode
+          that.data.submit.isOnShow = event.data.isOnShow
           that.setData({
             isShowQRCode: event.data.isShowQRCode
           })
@@ -147,7 +149,7 @@ Page({
       })
     }
   },
-  getUserInfo:function(e){
+  getUserInfo: function(e) {
     if (e.detail.userInfo) {
       app.globalData.userInfo = e.detail.userInfo
       this.setData({
@@ -246,7 +248,8 @@ Page({
                   province: that.data.submit.province,
                   src: that.data.submit.src,
                   times: 1,
-                  isShowQRCode: that.data.submit.isShowQRCode
+                  isShowQRCode: that.data.submit.isShowQRCode,
+                  isOnShow: false
                 },
                 success: function(event) {
                   console.log('提交成功', event)
@@ -270,7 +273,7 @@ Page({
                 },
               })
             } else if (that.data.isDone == true) {
-              db.collection('university').doc(app.globalData.openid).update({
+              db.collection('university').doc(app.globalData.openid).set({
                 data: {
                   wechatID: that.data.submit.wechatID,
                   name: that.data.submit.name,
@@ -278,7 +281,8 @@ Page({
                   province: that.data.submit.province,
                   src: that.data.submit.src,
                   times: that.data.submit.times + 1,
-                  isShowQRCode: that.data.submit.isShowQRCode
+                  isShowQRCode: that.data.submit.isShowQRCode,
+                  isOnShow: that.data.submit.isOnShow
                 },
                 success: function(event) {
                   console.log('提交成功', event)
