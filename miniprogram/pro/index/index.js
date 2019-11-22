@@ -3,7 +3,7 @@ const db = wx.cloud.database()
 
 Page({
   data: {
-    tabList: [{
+    tagList: [{
       value: 'one',
       id: 1,
       name: '华南',
@@ -44,16 +44,16 @@ Page({
       name: '其他',
       list: []
     }],
-    tagList: [{
-      south: [],
-      central: [],
-      north: [],
-      east: [],
-      northwest: [],
-      northeast: [],
-      southwest: [],
-      others: []
-    }],
+    // tagList: [{
+    //   south: [],
+    //   central: [],
+    //   north: [],
+    //   east: [],
+    //   northwest: [],
+    //   northeast: [],
+    //   southwest: [],
+    //   others: []
+    // }],
     uniList: [],
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     height: 0,
@@ -136,38 +136,25 @@ Page({
    * 数据载入函数--查询数据库操作
    */
   loadData: function() {
-    var tagList = [{
-      south: [],
-      central: [],
-      north: [],
-      east: [],
-      northwest: [],
-      northeast: [],
-      southwest: [],
-      others: []
-    }]
-    var uniList = new Object()
-    var uniListLength
     let that = this
     db.collection('control').doc('university').get({
       success: function(res) {
         console.log('查询成功', res)
-        tagList.central = res.central
-        tagList.east = res.east
-        tagList.north = res.north
-        tagList.northeast = res.northeast
-        tagList.northwest = res.northwest
-        tagList.others = res.others
-        tagList.south = res.south
-        tagList.southwest = res.southwest
-        uniListLength = res.data.uniItems.length
-        for (let i = 0; i < res.data.uniItems.length; i++) {
-          uniList[i] = res.data.uniItems[i]
-          if (i == res.data.uniItems.length - 1) {
+        that.data.tagList[0].list = res.data.south
+        that.data.tagList[1].list = res.data.central
+        that.data.tagList[2].list = res.data.north
+        that.data.tagList[3].list = res.data.east
+        that.data.tagList[4].list = res.data.southwest
+        that.data.tagList[5].list = res.data.northwest
+        that.data.tagList[6].list = res.data.northeast
+        that.data.tagList[7].list = res.data.others
+        // let uniListLength = res.data.uniList.length
+        for (let i = 0; i < res.data.uniList.length; i++) {
+          that.data.uniList[i] = res.data.uniList[i]
+          if (i == res.data.uniList.length - 1) {
             that.setData({
-              tagList: tagList,
-              uniList: uniList,
-              uniListLength: uniListLength
+              tagList: that.data.tagList,
+              uniList: that.data.uniList,
             })
           }
         }
@@ -180,16 +167,50 @@ Page({
   /**
    * 打开二维码图片
    */
-  toQRCode: function(e) {
-    wx.previewImage({
-      urls: ['../../components/chatroom/photo.png'],
-      success: function() {
-        wx.showToast({
-          title: '长按保存图片',
-          duration: 2000
+  tap: function(e) {
+    console.log('点击学校', e)
+    var that = this
+    if (e.currentTarget.dataset.id >= 0) {
+      if (this.data.uniList[e.currentTarget.dataset.id].isShowQRCode) {
+        wx.previewImage({
+          urls: [that.data.uniList[e.currentTarget.dataset.id].src],
+          success: function() {
+            wx.showToast({
+              title: '长按扫描二维码',
+              duration: 1000
+            })
+          }
+        })
+      } else {
+        let content = '咨询群已满一百人\n请复制添加负责人微信:\n' + that.data.uniList[e.currentTarget.dataset.id].wechatID
+        wx.showModal({
+          title: '请复制负责人微信号',
+          content: content,
+          cancelText: '返回',
+          confirmText: '复制',
+          success: function(res) {
+            if (res.confirm) {
+              wx.setClipboardData({
+                data: that.data.uniList[e.currentTarget.dataset.id].wechatID,
+              })
+            }
+          },
+          fail: function() {
+            wx.showToast({
+              title: '错误104',
+              icon: 'none',
+              duration: 500,
+            })
+          },
         })
       }
-    })
+    } else {
+      wx.showToast({
+        title: '错误105',
+        icon: 'none',
+        duration: 500,
+      })
+    }
   },
   /**
    * 切换类别
@@ -220,14 +241,15 @@ Page({
     });
   },
   toSighup: function() {
-    if (app.globalData.openid =='ox8QE5mHoAOyo8Vc_CMKcjl9rciM'){
+    if (app.globalData.openid == 'ox8QE5mHoAOyo8Vc_CMKcjl9rciM') {
       wx.navigateTo({
         url: '../manage/manage',
       })
-    } else 
-   { wx.navigateTo({
-      url: '../sighup/sighup',
-    })}
+    } else {
+      wx.navigateTo({
+        url: '../sighup/sighup',
+      })
+    }
   },
 
   getListHeight: function(arr, unit) {

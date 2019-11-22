@@ -1,5 +1,5 @@
 <view>
-  <view>特级管理界面</view>
+  <view>高级管理界面</view>
   <button bindtap="check">更新</button>
   <view id="{{index}}" wx:for="{{arr}}" data-id="{{index}}" data-value="{{item._openid}}" class="items">
     <view>{{item.name}} {{item.tag}} {{item.province}}</view>
