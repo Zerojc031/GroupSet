@@ -130,18 +130,26 @@ Page({
           success: function(res) {
             that.data.control = res.data
             console.log('查询control', res.data)
-            // that.data.control.central=res.data.central
-            // that.data.control.east=res.data.east
-            // that.data.control.south=res.data.south
-            // that.data.control.north=res.data.north
-            // that.data.control.northeast=res.data.northeast
-            // that.data.control.northwest=res.data.northwest
-            // that.data.control.southwest=res.data.southwest
-            // that.data.control.others=res.data.others
+            // that.data.control.central = res.data.central
+            // that.data.control.east = res.data.east
+            // that.data.control.south = res.data.south
+            // that.data.control.north = res.data.north
+            // that.data.control.northeast = res.data.northeast
+            // that.data.control.northwest = res.data.northwest
+            // that.data.control.southwest = res.data.southwest
+            // that.data.control.others = res.data.others
             // that.data.control.uniList = that.data.arr
             for (let i = 0; i < that.data.length; i++) {
-              that.data.control.uniList[i] = that.data.arr[i]
+              that.data.control.uniList[i]._id = that.data.arr[i]._id
+              that.data.control.uniList[i]._openid = that.data.arr[i]._openid
               that.data.control.uniList[i].isOnShow = res.data.uniList[i].isOnShow
+              that.data.control.uniList[i].isShowQRCode = that.data.arr[i].isShowQRCode
+              that.data.control.uniList[i].name = that.data.arr[i].name
+              that.data.control.uniList[i].province = that.data.arr[i].province
+              that.data.control.uniList[i].src = that.data.arr[i].src
+              that.data.control.uniList[i].tag = that.data.arr[i].tag
+              that.data.control.uniList[i].times = that.data.arr[i].times
+              that.data.control.uniList[i].wechatID = that.data.arr[i].wechatID
               if (i == that.data.length - 1) {
                 that.setData({
                   control: that.data.control,

@@ -5,26 +5,29 @@
 <view wx:if="{{hasUserInfo==true}}">
   <view>负责人注册页面</view>
   <view>
-    <input placeholder="输入大学完整名字" bindinput="bindNameInput"></input>
+    <input value="{{submit.name?submit.name:''}}" placeholder="输入大学完整名字" bindinput="bindNameInput"></input>
   </view>
   <view>
-    <input placeholder="输入负责人微信号" bindinput="bindWechatIDInput"></input>
+    <input value="{{submit.wechatID?submit.wechatID:''}}" placeholder="输入负责人微信号" bindinput="bindWechatIDInput"></input>
   </view>
   <view>
     <radio-group bindchange="radioChange">
-      <radio wx:for-items="{{radioItems}}" wx:key="radio" value="{{item.value}}">
+      <radio wx:for-items="{{radioItems}}" wx:key="radio" checked="{{submit.tag==item.value?'true':''}}" value="{{item.value}}">
         <text>{{item.name}}</text>
       </radio>
     </radio-group>
   </view>
   <view>
-    <input placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
+    <input value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
     <text>填写格式：广东、广西、上海、香港，不用写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</text>
   </view>
   <text>显示二维码</text>
-  <switch checked="{{isShowQRCode}}" bindchange="bindSwitchChange"></switch>
-  <view wx:if="{{isShowQRCode==true}}">
-    <button bindtap="upLoadQRCode">上传二维码</button>
+  <switch checked="{{submit.isShowQRCode}}" bindchange="bindSwitchChange"></switch>
+  <view wx:if="{{submit.isShowQRCode}}">
+    <button bindtap="upLoadQRCode">
+      上传二维码
+      <text wx:if="{{submit.src}}">√</text>
+    </button>
   </view>
   <view>
     <button bindtap="submit">Submit</button>

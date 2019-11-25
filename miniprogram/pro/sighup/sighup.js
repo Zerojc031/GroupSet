@@ -76,22 +76,31 @@ Page({
           db.collection('university').doc(app.globalData.openid).get({
             success: function(event) {
               console.log('查询成功', event.data)
-              that.data.submit.name = event.data.name
-              that.data.submit.province = event.data.province
-              that.data.submit.tag = event.data.tag
-              if (event.data.src) that.data.submit.src = event.data.src
-              that.data.submit.wechatID = event.data.wechatID
-              that.data.submit.times = event.data.times
-              that.data.submit.isShowQRCode = event.data.isShowQRCode
-              that.data.submit.isOnShow = event.data.isOnShow
+              that.data.submit = event.data
+              // that.data.submit.name = event.data.name
+              // that.data.submit.province = event.data.province
+              // that.data.submit.tag = event.data.tag
+              // if (event.data.src) that.data.submit.src = event.data.src
+              // that.data.submit.wechatID = event.data.wechatID
+              // that.data.submit.times = event.data.times
+              // that.data.submit.isShowQRCode = event.data.isShowQRCode
+              // that.data.submit.isOnShow = event.data.isOnShow
               that.setData({
-                isShowQRCode: event.data.isShowQRCode
+                submit: that.data.submit
               })
             },
             fail: function(event) {
               that.data.isDone = false
               that.data.submit.isShowQRCode = false
               that.data.submit.times = 1
+              that.setData({
+                submit: that.data.submit
+              })
+            },
+            complete: function() {
+              that.setData({
+                submit: that.data.submit
+              })
             }
           })
         },
@@ -103,22 +112,31 @@ Page({
       db.collection('university').doc(app.globalData.openid).get({
         success: function(event) {
           console.log('查询成功', event.data)
-          that.data.submit.name = event.data.name
-          that.data.submit.province = event.data.province
-          that.data.submit.tag = event.data.tag
-          if (event.data.src) that.data.submit.src = event.data.src
-          that.data.submit.wechatID = event.data.wechatID
-          that.data.submit.times = event.data.times
-          that.data.submit.isShowQRCode = event.data.isShowQRCode
-          that.data.submit.isOnShow = event.data.isOnShow
+          that.data.submit = event.data
+          // that.data.submit.name = event.data.name
+          // that.data.submit.province = event.data.province
+          // that.data.submit.tag = event.data.tag
+          // if (event.data.src) that.data.submit.src = event.data.src
+          // that.data.submit.wechatID = event.data.wechatID
+          // that.data.submit.times = event.data.times
+          // that.data.submit.isShowQRCode = event.data.isShowQRCode
+          // that.data.submit.isOnShow = event.data.isOnShow
           that.setData({
-            isShowQRCode: event.data.isShowQRCode
+            submit: that.data.submit
           })
         },
         fail: function(event) {
           that.data.isDone = false
           that.data.submit.isShowQRCode = false
           that.data.submit.times = 1
+          that.setData({
+            submit: that.data.submit
+          })
+        },
+        complete: function() {
+          that.setData({
+            submit: that.data.submit
+          })
         }
       })
     }
@@ -171,15 +189,17 @@ Page({
     this.data.submit.province = e.detail.value
   },
   bindSwitchChange: function(e) {
-    if (this.data.isShowQRCode == true) {
+    if (this.data.submit.isShowQRCode == true) {
       this.data.submit.isShowQRCode = false
       this.setData({
-        isShowQRCode: false
+        // isShowQRCode: false
+        submit: this.data.submit
       })
-    } else if (this.data.isShowQRCode == false) {
+    } else if (this.data.submit.isShowQRCode == false) {
       this.data.submit.isShowQRCode = true
       this.setData({
-        isShowQRCode: true
+        // isShowQRCode: true
+        submit: this.data.submit
       })
     }
   },

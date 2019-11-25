@@ -11,7 +11,7 @@
     <scroll-view class="menu-right" style="height: 100%;" scroll-into-view="{{toView}}" scroll-y bindscroll="scroll" scroll-with-animation enable-back-to-top>
       <view wx:for="{{tagList}}" wx:for-index="index" wx:for-item="item">
         <view class="menu-detail-header">{{item.name}}地区</view>
-        <view id="{{item2}}" data-id="{{item2}}" data-value="{{uniList[item2]._openid}}" wx:for="{{item.list}}" wx:for-index="index2" wx:for-item="item2" wx:if="{{index2!=0}}" class="menu-detail-list" bindtap="tap">
+        <view id="{{item2}}" data-id="{{item2}}" data-value="{{uniList[item2]._openid}}" wx:for="{{item.list}}" wx:for-index="index2" wx:for-item="item2" wx:if="{{index2!=0}}" class="menu-detail-list" bindtap="tap" wx:if="{{uniList[item2].isOnShow}}">
           <view class="menu-detail">
             <view class="menu-detail-content">
               <view class="menu-detail-title">{{uniList[item2].name}}</view>
