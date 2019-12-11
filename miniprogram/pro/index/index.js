@@ -241,15 +241,14 @@ Page({
     });
   },
   toSighup: function() {
-    if (app.globalData.openid == 'ox8QE5mHoAOyo8Vc_CMKcjl9rciM') {
       wx.navigateTo({
         url: '../manage/manage',
       })
-    } else {
+  },
+  toSubmit: function () {
       wx.navigateTo({
         url: '../sighup/sighup',
       })
-    }
   },
 
   getListHeight: function(arr, unit) {

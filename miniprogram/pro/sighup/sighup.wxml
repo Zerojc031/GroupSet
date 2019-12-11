@@ -21,13 +21,15 @@
     <input value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
     <text>填写格式：广东、广西、上海、香港，不用写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</text>
   </view>
-  <text>显示二维码</text>
-  <switch checked="{{submit.isShowQRCode}}" bindchange="bindSwitchChange"></switch>
-  <view wx:if="{{submit.isShowQRCode}}">
-    <button bindtap="upLoadQRCode">
-      上传二维码
-      <text wx:if="{{submit.src}}">√</text>
-    </button>
+  <view wx:if="{{submit.name}}">
+    <text>显示二维码</text>
+    <switch checked="{{submit.isShowQRCode}}" bindchange="bindSwitchChange"></switch>
+    <view wx:if="{{submit.isShowQRCode}}">
+      <button bindtap="upLoadQRCode">
+        上传二维码
+        <text wx:if="{{submit.src}}">√</text>
+      </button>
+    </view>
   </view>
   <view>
     <button bindtap="submit">Submit</button>

@@ -46,7 +46,7 @@ Page({
       province: null,
       src: null,
       times: null,
-      isShowQRCode: null,
+      isShowQRCode: false,
     }],
     hasUserInfo: false,
     isDone: true, //是否注册过
@@ -86,18 +86,14 @@ Page({
               // that.data.submit.isShowQRCode = event.data.isShowQRCode
               // that.data.submit.isOnShow = event.data.isOnShow
               that.setData({
-                submit: that.data.submit
+                submit: that.data.submit,
+                isShowQRCode:that.data.isShowQRCode
               })
             },
             fail: function(event) {
               that.data.isDone = false
               that.data.submit.isShowQRCode = false
-              that.data.submit.times = 1
-              that.setData({
-                submit: that.data.submit
-              })
-            },
-            complete: function() {
+              that.data.submit.times = 0
               that.setData({
                 submit: that.data.submit
               })
@@ -122,13 +118,14 @@ Page({
           // that.data.submit.isShowQRCode = event.data.isShowQRCode
           // that.data.submit.isOnShow = event.data.isOnShow
           that.setData({
-            submit: that.data.submit
+            submit: that.data.submit,
+            isShowQRCode: that.data.isShowQRCode
           })
         },
         fail: function(event) {
           that.data.isDone = false
           that.data.submit.isShowQRCode = false
-          that.data.submit.times = 1
+          that.data.submit.times = 0
           that.setData({
             submit: that.data.submit
           })
@@ -192,13 +189,13 @@ Page({
     if (this.data.submit.isShowQRCode == true) {
       this.data.submit.isShowQRCode = false
       this.setData({
-        // isShowQRCode: false
+        isShowQRCode: false,
         submit: this.data.submit
       })
     } else if (this.data.submit.isShowQRCode == false) {
       this.data.submit.isShowQRCode = true
       this.setData({
-        // isShowQRCode: true
+        isShowQRCode: true,
         submit: this.data.submit
       })
     }
@@ -210,11 +207,21 @@ Page({
       sizeType: 'compressed',
       // sourceType: 'album',
       success: function(res) {
-        let cloudPathID = 'university/' + app.globalData.openid + '.png'
+        let tid=that.data.submit.times+1
+        let cloudPathID = 'university/' + app.globalData.openid+'#'+tid + '.png'
         wx.cloud.uploadFile({
           cloudPath: cloudPathID,
           filePath: res.tempFilePaths[0],
           success: function(event) {
+            if (that.data.submit.src) {
+              let srcOld = that.data.submit.src
+              wx.cloud.deleteFile({
+                fileList: [srcOld],
+                success: function (res) {
+                  console.log('删除旧文件成功')
+                }
+              })
+            }
             console.log('上传图片成功', res.tempFilePaths[0])
             that.data.submit.src = event.fileID
             wx.showToast({
