@@ -87,7 +87,7 @@ Page({
               // that.data.submit.isOnShow = event.data.isOnShow
               that.setData({
                 submit: that.data.submit,
-                isShowQRCode:that.data.isShowQRCode
+                isShowQRCode:that.data.submit.isShowQRCode
               })
             },
             fail: function(event) {
@@ -119,7 +119,7 @@ Page({
           // that.data.submit.isOnShow = event.data.isOnShow
           that.setData({
             submit: that.data.submit,
-            isShowQRCode: that.data.isShowQRCode
+            isShowQRCode: that.data.submit.isShowQRCode
           })
         },
         fail: function(event) {
@@ -190,15 +190,18 @@ Page({
       this.data.submit.isShowQRCode = false
       this.setData({
         isShowQRCode: false,
-        submit: this.data.submit
+        // submit: this.data.submit
       })
     } else if (this.data.submit.isShowQRCode == false) {
       this.data.submit.isShowQRCode = true
       this.setData({
         isShowQRCode: true,
-        submit: this.data.submit
+        // submit: this.data.submit
       })
     }
+    // this.setData({
+    //   submit: this.data.submit
+    // })
   },
   upLoadQRCode: function(e) {
     var that = this
