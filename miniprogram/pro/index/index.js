@@ -1,4 +1,5 @@
 const app = getApp()
+wx.cloud.init()
 const db = wx.cloud.database()
 
 Page({
@@ -62,17 +63,20 @@ Page({
     scrollTop: 100,
     listsHeight: [],
     unitPx: 0.5,
-    toViewLeft: ''
+    toViewLeft: '',
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.loadUserInfo()
     var that = this;
     this.loadData()
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         console.log('获取设备信息成功', res)
         that.setData({
           height: res.windowHeight,
@@ -82,7 +86,7 @@ Page({
     })
   },
 
-  onReady: function(options) {
+  onReady: function (options) {
     // var list = this.getListHeight(menu, this.data.unitPx);
     // this.setData({
     //   listsHeight: list
@@ -91,7 +95,7 @@ Page({
   /**
    * 用户识别处理函数
    */
-  loadUserInfo: function() {
+  loadUserInfo: function () {
     if (!app.globalData.openid) {
       wx.cloud.callFunction({
         name: 'login',
@@ -132,13 +136,29 @@ Page({
       })
     }
   },
+  getUserInfo: function (e) {
+    console.log(e)
+    if (e.detail.userInfo) {
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+    } else {
+      wx.showToast({
+        title: '您未授权用户信息',
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+  },
   /**
    * 数据载入函数--查询数据库操作
    */
-  loadData: function() {
+  loadData: function () {
     let that = this
     db.collection('control').doc('university').get({
-      success: function(res) {
+      success: function (res) {
         console.log('查询成功', res)
         that.data.tagList[0].list = res.data.south
         that.data.tagList[1].list = res.data.central
@@ -159,7 +179,7 @@ Page({
           }
         }
       },
-      fail: function(res) {
+      fail: function (res) {
         console.log('查询失败', res)
       }
     })
@@ -167,35 +187,58 @@ Page({
   /**
    * 打开二维码图片
    */
-  tap: function(e) {
+  tap: function (e) {
     console.log('点击学校', e)
     var that = this
     if (e.currentTarget.dataset.id >= 0) {
       if (this.data.uniList[e.currentTarget.dataset.id].isShowQRCode) {
+        /*wx.cloud.getTempFileURL({
+          fileList: [that.data.uniList[e.currentTarget.dataset.id].src],
+          success: res => {
+            let QRCodeUrl = res.fileList[0].tempFileURL
+            console.log('用云文件ID换取真实url', res.fileList)
+            console.log('真实url', QRCodeUrl)
+            that.preview(QRCodeUrl)
+          },
+          fail: err => { }
+        })*/
+        /*wx.cloud.downloadFile({
+          fileID: that.data.uniList[e.currentTarget.dataset.id].src,
+          success: function (res) {
+            console.log('二维码下载成功', res)
+            that.preview(res.tempFilePath)
+
+          },
+          fail: function (res) {
+            console.log('二维码下载失败', res)
+          }
+        })*/
+        let imageUrl = that.data.uniList[e.currentTarget.dataset.id].src
         wx.previewImage({
-          urls: [that.data.uniList[e.currentTarget.dataset.id].src],
-          success: function() {
-            wx.showToast({
+          urls: [imageUrl],
+          success: function (res2) {
+            /*wx.showToast({
               title: '长按扫描二维码',
               duration: 1000
-            })
+            }),*/
+            console.log('打开二维码', imageUrl)
           }
         })
       } else {
-        let content = '咨询群已满一百人\n请复制添加负责人微信:\n' + that.data.uniList[e.currentTarget.dataset.id].wechatID
+        let content = '咨询群已满两百百人\n请点击复制添加负责人微信:\n' + that.data.uniList[e.currentTarget.dataset.id].wechatID
         wx.showModal({
-          title: '请复制负责人微信号',
+          title: '点击复制负责人微信号',
           content: content,
           cancelText: '返回',
           confirmText: '复制',
-          success: function(res) {
+          success: function (res) {
             if (res.confirm) {
               wx.setClipboardData({
                 data: that.data.uniList[e.currentTarget.dataset.id].wechatID,
               })
             }
           },
-          fail: function() {
+          fail: function () {
             wx.showToast({
               title: '错误104',
               icon: 'none',
@@ -213,9 +256,25 @@ Page({
     }
   },
   /**
+   * preview二维码
+   */
+  preview: function (r) {
+    console.log('preview函数', r)
+    wx.previewImage({
+      urls: [r],
+      success: function (res2) {
+        wx.showToast({
+          title: '长按扫描二维码',
+          duration: 1000
+        })
+        console.log('打开二维码', res2)
+      }
+    })
+  },
+  /**
    * 切换类别
    */
-  switchTab: function(e) {
+  switchTab: function (e) {
     console.log('切换类别', e)
     this.setData({
       curTabIndex: e.target.dataset.id,
@@ -225,7 +284,7 @@ Page({
   /**
    * 右边列表滚动时触发函数
    */
-  scroll: function(e) {
+  scroll: function (e) {
     console.log('列表滚动', e);
     var heights = this.data.listsHeight;
     var tempValue, tempId;
@@ -237,21 +296,22 @@ Page({
     }
     this.setData({
       curTabIndex: tempId,
-      toViewLeft: tempValue
+      // toViewLeft: tempValue,
+      toViewLeft: '',
     });
   },
-  toSighup: function() {
-      wx.navigateTo({
-        url: '../manage/manage',
-      })
+  toSighup: function () {
+    wx.navigateTo({
+      url: '../manage/manage',
+    })
   },
   toSubmit: function () {
-      wx.navigateTo({
-        url: '../sighup/sighup',
-      })
+    wx.navigateTo({
+      url: '../sighup/sighup',
+    })
   },
 
-  getListHeight: function(arr, unit) {
+  getListHeight: function (arr, unit) {
     var kidsLength = 0; //获取该列子元素的长度
     for (var i in arr) {
       if (i == 0) {
@@ -264,5 +324,13 @@ Page({
     console.log(arr);
     return arr;
   },
-
+  /**
+   * 页面分享
+   */
+  onShareAppMessage: function (res) {
+    return {
+      title: '@金中毕业生，这是你需要的咨询群合集！',
+      path: '/pro/index/index'
+    }
+  }
 })

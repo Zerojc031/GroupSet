@@ -1,16 +1,19 @@
 <view wx:if="{{hasUserInfo==false}}">
-  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像昵称</button>
+  <button class="button-sighup" open-type="getUserInfo" bindgetuserinfo="getUserInfo">点击授权微信信息</button>
+  <view class="view-sighupTips">
+    授权信息仅用于绑定学校，不作它用。每个学校仅支持第一个绑定的人上传和更新信息。
+  </view>
 </view>
 
 <view wx:if="{{hasUserInfo==true}}">
-  <view>负责人注册页面</view>
+  <view class="view-title">负责人注册页面</view>
   <view>
-    <input value="{{submit.name?submit.name:''}}" placeholder="输入大学完整名字" bindinput="bindNameInput"></input>
+    <input class="input-three" value="{{submit.name?submit.name:''}}" placeholder="输入大学完整名字" bindinput="bindNameInput"></input>
   </view>
   <view>
-    <input value="{{submit.wechatID?submit.wechatID:''}}" placeholder="输入负责人微信号" bindinput="bindWechatIDInput"></input>
+    <input class="input-three" value="{{submit.wechatID?submit.wechatID:''}}" placeholder="输入负责人微信号" bindinput="bindWechatIDInput"></input>
   </view>
-  <view>
+  <view class="view-raido">
     <radio-group bindchange="radioChange">
       <radio wx:for-items="{{radioItems}}" wx:key="radio" checked="{{submit.tag==item.value?'true':''}}" value="{{item.value}}">
         <text>{{item.name}}</text>
@@ -18,21 +21,33 @@
     </radio-group>
   </view>
   <view>
-    <input value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
-    <text>填写格式：广东、广西、上海、香港，不用写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</text>
+    <input class="input-three" value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
+    <view class="text-tips">填写示例：广东、广西、上海、香港，不需写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</view>
   </view>
   <!-- <view wx:if="{{submit.name}}"> -->
-  <view>
+  <view class="view-upLoad">
     <text>显示二维码</text>
     <switch checked="{{isShowQRCode}}" bindchange="bindSwitchChange"></switch>
     <view wx:if="{{isShowQRCode}}">
-      <button bindtap="upLoadQRCode">
+      <button class="button-upLoad" bindtap="upLoadQRCode">
         上传二维码
         <text wx:if="{{submit.src}}">√</text>
       </button>
     </view>
   </view>
   <view>
-    <button bindtap="submit">Submit</button>
+    <button class="button-submit" bindtap="submit">提交信息</button>
+  </view>
+  <view class="view-notice">
+    <text>
+      操作流程与注意事项：\n
+      0.本页面为高校负责人注册页面，请大家不要外传，一所高校仅能由唯一用户上传信息，暂不提供更改绑定用户(该需求暂未进行测试，可能有意外状况)，但信息填写界面的负责人微信号可以修改。\n
+      1.学校名、负责人微信号、地区、所在省级行政区为必填项，二维码为选填项，这些信息均可修改。若不需显示二维码，关掉开关即可。\n
+      2.关掉二维码后，才会显示负责人微信号给用户。\n
+      3.每次修改信息一定要点击“提交信息”按钮，上传二维码后需等待“上传成功”的弹窗消失（3秒）后再点击“提交信息”按钮。\n
+      4.每次修改信息必须在群里艾特开发者，开发者发布后才能对外显示最新信息。\n
+      5.有不了解的问题或其他情况也请艾特开发者。\n
+      6.这个小程序是首次使用，可能存在bug，感谢大家能一起参与完善功能和服务。如果有熟悉前端开发或小程序开发且对此项目感兴趣的宝宝，欢迎联（带）系（带）我。\n\n
+    </text>
   </view>
 </view>

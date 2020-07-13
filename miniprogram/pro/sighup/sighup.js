@@ -211,19 +211,19 @@ Page({
       // sourceType: 'album',
       success: function(res) {
         let tid=that.data.submit.times+1
-        let cloudPathID = 'university/' + app.globalData.openid+'#'+tid + '.png'
+        let cloudPathID = 'university/' + app.globalData.openid+'-'+tid + '.jpg'
         wx.cloud.uploadFile({
           cloudPath: cloudPathID,
           filePath: res.tempFilePaths[0],
           success: function(event) {
             if (that.data.submit.src) {
               let srcOld = that.data.submit.src
-              wx.cloud.deleteFile({
+              /*wx.cloud.deleteFile({
                 fileList: [srcOld],
                 success: function (res) {
                   console.log('删除旧文件成功')
                 }
-              })
+              })*/
             }
             console.log('上传图片成功', res.tempFilePaths[0])
             that.data.submit.src = event.fileID
@@ -279,7 +279,7 @@ Page({
                   src: that.data.submit.src,
                   times: 1,
                   isShowQRCode: that.data.submit.isShowQRCode,
-                  isOnShow: false
+                  isOnShow: true
                 },
                 success: function(event) {
                   console.log('提交成功', event)
@@ -312,7 +312,7 @@ Page({
                   src: that.data.submit.src,
                   times: that.data.submit.times + 1,
                   isShowQRCode: that.data.submit.isShowQRCode,
-                  isOnShow: that.data.submit.isOnShow
+                  isOnShow: true
                 },
                 success: function(event) {
                   console.log('提交成功', event)
