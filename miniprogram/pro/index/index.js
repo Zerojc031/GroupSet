@@ -332,5 +332,13 @@ Page({
       title: '@金中毕业生，这是你需要的咨询群合集！',
       path: '/pro/index/index'
     }
+  },
+
+  toMore: function () {
+    wx.showModal({
+      content: '小程序内不支持二维码识别，需要先保存图片，再返回微信手动扫一扫。\n开发者的联系方式在高校列表的最后一项',
+      showCancel: false,
+      comfirmText: '确定',
+    })
   }
 })

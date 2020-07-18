@@ -1,3 +1,26 @@
-.items{
-  margin-top:10px 
+.view-items {
+  margin-top: 5px;
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: #dee6fa;
+  font-size: 12px;
+}
+
+.view-title {
+  text-align: center;
+  margin-top: 2px;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.button-check {
+  border-radius: 20px;
+  background-color: #87aaf7;
+  padding: 2px 0;
+}
+
+.button-showAndHide {
+  font-size: 14px;
+  border-radius: 20px;
+  padding: 0 0 2px 0;
 }

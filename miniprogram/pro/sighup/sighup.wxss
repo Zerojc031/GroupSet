@@ -22,13 +22,15 @@
 }
 
 .button-submit {
-  background-color: #bbe8ee;
+  background-color: #c6eafe;
   margin-top: 6px;
+  border-radius: 20px;
 }
 
 .button-upLoad {
-  background-color: #bbe8ee;
+  background-color: #c6eafe;
   margin-top: 6px;
+  border-radius: 20px;
 }
 
 .button-sighup {
@@ -53,7 +55,8 @@
   margin-bottom: 10px;
   text-align: center;
 }
-.view-notice{
+
+.view-notice {
   margin-top: 0px;
   margin-left: 16px;
   margin-right: 16px;
