@@ -22,9 +22,8 @@
   </view>
   <view>
     <input class="input-three" value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
-    <view class="text-tips">填写示例：广东、广西、上海、香港，不需写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</view>
+    <view class="view-tips">填写示例：广东、广西、上海、香港，不需写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</view>
   </view>
-  <!-- <view wx:if="{{submit.name}}"> -->
   <view class="view-upLoad">
     <text>显示二维码</text>
     <switch checked="{{isShowQRCode}}" bindchange="bindSwitchChange"></switch>

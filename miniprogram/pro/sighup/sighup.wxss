@@ -7,15 +7,18 @@
 
 .input-three {
   display: block;
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 14px;
+  margin-right: 14px;
   background-color: #f2f3fc;
   border-style: solid;
   border-width: 1px;
-  height: 25px;
+  height: 30px;
   border-color: #8e8e8e;
 }
 
-.text-tips {
+.view-tips {
   margin-left: 20px;
   margin-right: 20px;
   font-size: small;

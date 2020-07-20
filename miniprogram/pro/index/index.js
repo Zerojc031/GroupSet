@@ -225,7 +225,7 @@ Page({
           }
         })
       } else {
-        let content = '咨询群已满两百百人\n请点击复制添加负责人微信:\n' + that.data.uniList[e.currentTarget.dataset.id].wechatID
+        let content = '咨询群已满两百人\n请点击复制添加负责人微信:\n' + that.data.uniList[e.currentTarget.dataset.id].wechatID
         wx.showModal({
           title: '点击复制负责人微信号',
           content: content,
@@ -336,7 +336,7 @@ Page({
 
   toMore: function () {
     wx.showModal({
-      content: '小程序内不支持二维码识别，需要先保存图片，再返回微信手动扫一扫。\n开发者的联系方式在高校列表的最后一项',
+      content: '小程序内不支持二维码识别，需要先保存图片，再返回微信手动扫一扫。开发者的联系方式在高校列表的最后一项。',
       showCancel: false,
       comfirmText: '确定',
     })
