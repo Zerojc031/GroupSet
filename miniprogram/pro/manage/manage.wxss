@@ -19,6 +19,13 @@
   padding: 2px 0;
 }
 
+.button-upLoad{
+  border-radius: 20px;
+  background-color: #87aaf7;
+  padding: 2px 0;
+  margin-top: 3px;
+}
+
 .button-showAndHide {
   font-size: 14px;
   border-radius: 20px;

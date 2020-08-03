@@ -183,7 +183,8 @@ Page({
           }
         })
         that.setData({
-          arr:that.data.arr
+          arr:that.data.arr,
+          length:that.data.length
         })
       },
       complete: function () {
