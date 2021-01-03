@@ -10,5 +10,5 @@
 
 ## 参考文档
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+- [微信官方文档·小程序](https://developers.weixin.qq.com/miniprogram/dev/framework/)
 
