@@ -340,5 +340,9 @@ Page({
       showCancel: false,
       comfirmText: '确定',
     })
+  },
+
+  toSearch:function(){
+    console.log("搜索功能还没写好")
   }
 })

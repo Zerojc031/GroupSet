@@ -60,8 +60,17 @@
 }
 
 .view-notice {
-  margin-top: 0px;
+  margin-top: 10px;
   margin-left: 16px;
   margin-right: 16px;
-  font-size: 12px;
+  font-size: 16px;
+}
+
+.view-noticeTitle{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.view-noticeEmphasize{
+  text-decoration: underline;
 }

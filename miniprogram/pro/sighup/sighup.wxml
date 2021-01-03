@@ -8,20 +8,24 @@
 <view wx:if="{{hasUserInfo==true}}">
   <view class="view-title">负责人注册页面</view>
   <view>
-    <input class="input-three" value="{{submit.name?submit.name:''}}" placeholder="输入大学完整名字" bindinput="bindNameInput"></input>
+    <input class="input-three" value="{{submit.name?submit.name:''}}" placeholder="输入大学完整名字"
+      bindinput="bindNameInput"></input>
   </view>
   <view>
-    <input class="input-three" value="{{submit.wechatID?submit.wechatID:''}}" placeholder="输入负责人微信号" bindinput="bindWechatIDInput"></input>
+    <input class="input-three" value="{{submit.wechatID?submit.wechatID:''}}" placeholder="输入负责人微信号"
+      bindinput="bindWechatIDInput"></input>
   </view>
   <view class="view-raido">
     <radio-group bindchange="radioChange">
-      <radio wx:for-items="{{radioItems}}" wx:key="radio" checked="{{submit.tag==item.value?'true':''}}" value="{{item.value}}">
+      <radio wx:for-items="{{radioItems}}" wx:key="radio" checked="{{submit.tag==item.value?'true':''}}"
+        value="{{item.value}}">
         <text>{{item.name}}</text>
       </radio>
     </radio-group>
   </view>
   <view>
-    <input class="input-three" value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区" bindinput="bindProvinceInput"></input>
+    <input class="input-three" value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区"
+      bindinput="bindProvinceInput"></input>
     <view class="view-tips">填写示例：广东、广西、上海、香港，不需写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</view>
   </view>
   <view class="view-upLoad">
@@ -38,15 +42,34 @@
     <button class="button-submit" bindtap="submit">提交信息</button>
   </view>
   <view class="view-notice">
-    <text>
-      操作流程与注意事项：\n
-      1.本页面为高校负责人注册页面，请大家不要外传，一项高校信息仅能由唯一用户上传信息，不 能更改绑定用户(该需求暂未测试，怕有意外状况)，但信息填写界面的负责人微信号可以修改。\n
-      2.学校名、负责人微信号、地区、所在省级行政区为必填项，二维码是选填项，所有信息均可修改。\n
-      3.若不需要显示二维码，关掉开关即可。关掉二维码后，会显示负责人微信号给用户。\n
-      4.每次修改信息一定要点击“提交信息”按钮，上传二维码后需等待“上传成功”的弹窗消失（3秒）后再点击“提交信息”按钮。\n
-      5.第一次上传信息需要在群里艾特开发者。此后修改信息不需要艾特开发者，开发者会每天不定时更新修改操作，开发者发布后才能对外显示最新信息。\n
-      6.若发现自己学校的信息长时间未更新，请艾特开发者。有不了解的问题或其他情况也请艾特开发者。\n
-      7.这个小程序是首次使用，可能存在bug，感谢大家能一起参与完善功能和服务。如果有熟悉前端开发或小程序开发且对此项目感兴趣的宝宝，欢迎联（带）系（带）我。\n\n
-    </text>
+    <view>
+      <text class="view-noticeTitle">使用本页面前须知：</text>
+      <view>
+        1.本页面为高校负责人注册页面，请大家不要外传，<text
+          class="view-noticeEmphasize">一项高校信息仅能由唯一用户上传信息，暂时不支持更改绑定用户</text>(该需求正在测试)，但本页面的负责人微信号可以修改。
+      </view>
+      <view>
+        2.学校名、负责人微信号、地区、所在省级行政区为<text
+          class="view-noticeEmphasize">必填项</text>，二维码是<text
+          class="view-noticeEmphasize">选填项</text>，所有信息均可修改。
+      </view>
+      <view>
+        3.若因群聊满200人等原因不需要显示二维码，关闭“显示二维码”的开关即可。关闭显示二维码后，用户点击你的学校，小程序将会显示负责人微信号并提供快捷复制选项。
+      </view>
+      <view>
+       4.<text
+          class="view-noticeEmphasize">每次修改信息一定要点击“提交信息”按钮，上传二维码后需等待“上传成功”的弹窗消失（3秒左右）后再点击“提交信息”按钮。</text>
+      </view>
+      <view>
+        5.<text
+          class="view-noticeEmphasize">第一次上传信息需要联系管理员以发布，此后每一次修改信息不需要通知管理员。</text>管理员会每天不定时更新发布，管理员更新发布后才能对外显示最新信息。
+      </view>
+      <view>
+        6.若发现自己提交的信息长时间未更新，请联系管理员。有不了解的问题或其他情况也可以联系管理员。
+      </view>
+      <view>
+        7.这个小程序为个人开发，可能存在bug，感谢大家能一起参与完善功能和服务。如果有熟悉前端开发或小程序开发且对此项目感兴趣的同学，可以联系开发者尝试接手这个项目。
+      </view>
+    </view>
   </view>
 </view>

@@ -101,12 +101,12 @@
 .button-getUserInfo {
   margin-top: 200rpx;
   font-size: 30rpx;
-  border-radius: 10rpx;
-  background-color: #beedec;
+  border-radius: 20rpx;
+  background-color: #95deff;
 }
 
 .view-intro {
-  margin: 30rpx;
+  margin: 68rpx;
 }
 
 .view-bottom {

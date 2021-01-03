@@ -1,17 +1,15 @@
 <view wx:if="{{!hasUserInfo && canIUse}}">
 	<button open-type="getUserInfo" class="button-getUserInfo" bindgetuserinfo="getUserInfo">授权微信信息</button>
 	<view class="view-intro">
-		本小程序为汕头市金山中学志愿填报咨询群二维码的托管小程序，仅限金山中学学生及其家人、教师使用，授权信息仅用于身份鉴别。
+		本小程序为汕头市金山中学志愿填报咨询群二维码的托管小程序，仅限潮汕地域的高中应届毕业学生及其家人、教师使用，授权信息仅用于身份鉴别。
 	</view>
 </view>
 <view wx:else class="">
-	<view>
-		<!-- 搜索框 -->
-	</view>
 	<view class="menu-container" style="height: {{height}}px;">
 		<scroll-view class="menu-left" scroll-y style="height: 100%;" scroll-into-view="{{toViewLeft}}" scroll-top="{{scrollTop}}">
 			<view id="{{item.value}}" wx:for="{{tagList}}" data-id="{{item.id}}" data-value="{{item.value}}" bindtap="switchTab" class="menu-left-item {{curTabIndex === item.id?'activity-menu':''}}">{{item.name}}</view>
 			<view class="menu-left-item" bindtap="toMore">更多</view>
+			<!-- <view class="menu-left-item" bindtap="toSearch">搜索🔍</view> -->
 			<view class="menu-left-item" bindtap="toSubmit">注册</view>
 			<view class="menu-left-item" bindtap="toSighup">管理</view>
 		</scroll-view>
