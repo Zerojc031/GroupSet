@@ -1,7 +1,7 @@
 <view wx:if="{{!hasUserInfo && canIUse}}">
 	<button open-type="getUserInfo" class="button-getUserInfo" bindgetuserinfo="getUserInfo">授权微信信息</button>
 	<view class="view-intro">
-		本小程序为汕头市金山中学志愿填报咨询群二维码的托管小程序，仅限潮汕地域的高中应届毕业学生及其家人、教师使用，授权信息仅用于身份鉴别。
+		本小程序为汕头市金山中学志愿填报咨询群二维码的托管小程序，仅限汕头金中及潮汕地域其他高中的应届毕业学生及其家人、教师使用，授权信息仅用于身份认证。2021年1月。
 	</view>
 </view>
 <view wx:else class="">

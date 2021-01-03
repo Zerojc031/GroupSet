@@ -336,7 +336,7 @@ Page({
 
   toMore: function () {
     wx.showModal({
-      content: '小程序内不支持二维码识别，需要先保存图片，再返回微信手动扫一扫。开发者的联系方式在高校列表的最后一项。',
+      content: '小程序内不支持二维码直接识别，需先保存图片，再返回微信手动扫一扫。开发者的联系方式在高校列表的最后一项。',
       showCancel: false,
       comfirmText: '确定',
     })

@@ -24,9 +24,9 @@
     </radio-group>
   </view>
   <view>
-    <input class="input-three" value="{{submit.province?submit.province:''}}" placeholder="输入大学所在省级行政区"
+    <input class="input-three" value="{{submit.province?submit.province:''}}" placeholder="输入大学所在地"
       bindinput="bindProvinceInput"></input>
-    <view class="view-tips">填写示例：广东、广西、上海、香港，不需写“省”、“自治区”、“市”、“特别行政区”等，以便页面展示</view>
+    <view class="view-tips">填写示例：上海、广东深圳。不需写“省”、“自治区”、“市”、“特别行政区”等，以便页面整齐</view>
   </view>
   <view class="view-upLoad">
     <text>显示二维码</text>
