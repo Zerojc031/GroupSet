@@ -66,11 +66,11 @@
   font-size: 16px;
 }
 
-.view-noticeTitle{
+.view-noticeTitle {
   font-weight: bold;
   font-size: 20px;
 }
 
-.view-noticeEmphasize{
+.view-noticeEmphasize {
   text-decoration: underline;
 }

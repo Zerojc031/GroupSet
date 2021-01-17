@@ -49,16 +49,14 @@
           class="view-noticeEmphasize">一项高校信息仅能由唯一用户上传信息，暂时不支持更改绑定用户</text>(该需求正在测试)，但本页面的负责人微信号可以修改。
       </view>
       <view>
-        2.学校名、负责人微信号、地区、所在省级行政区为<text
-          class="view-noticeEmphasize">必填项</text>，二维码是<text
+        2.学校名、负责人微信号、地区、所在省级行政区为<text class="view-noticeEmphasize">必填项</text>，二维码是<text
           class="view-noticeEmphasize">选填项</text>，所有信息均可修改。
       </view>
       <view>
         3.若因群聊满200人等原因不需要显示二维码，关闭“显示二维码”的开关即可。关闭显示二维码后，用户点击你的学校，小程序将会显示负责人微信号并提供快捷复制选项。
       </view>
       <view>
-       4.<text
-          class="view-noticeEmphasize">每次修改信息一定要点击“提交信息”按钮，上传二维码后需等待“上传成功”的弹窗消失（3秒左右）后再点击“提交信息”按钮。</text>
+        4.<text class="view-noticeEmphasize">每次修改信息一定要点击“提交信息”按钮，上传二维码后需等待“上传成功”的弹窗消失（3秒左右）后再点击“提交信息”按钮。</text>
       </view>
       <view>
         5.<text

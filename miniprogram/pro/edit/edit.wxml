@@ -1,0 +1,6 @@
+<!--pro/edit/edit.wxml-->
+<view>
+  <editor placeholder="提示信息" bindready="">
+  
+  </editor>
+</view>

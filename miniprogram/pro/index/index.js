@@ -170,12 +170,14 @@ Page({
         that.data.tagList[7].list = res.data.others
         // let uniListLength = res.data.uniList.length
         for (let i = 0; i < res.data.uniList.length; i++) {
+          // app.globalData.uniList[i] = res.data.uniList[i]
           that.data.uniList[i] = res.data.uniList[i]
           if (i == res.data.uniList.length - 1) {
             that.setData({
               tagList: that.data.tagList,
               uniList: that.data.uniList,
             })
+            app.globalData.uniList = res.data.uniList
           }
         }
       },
@@ -329,7 +331,7 @@ Page({
    */
   onShareAppMessage: function (res) {
     return {
-      title: '@金中毕业生，这是你需要的咨询群合集！',
+      title: '@金中高三ers，这是你需要的咨询群合集！',
       path: '/pro/index/index'
     }
   },
@@ -342,7 +344,11 @@ Page({
     })
   },
 
-  toSearch:function(){
-    console.log("搜索功能还没写好")
+  toSearch: function () {
+    let transferData=this.data.uniList
+    wx.navigateTo({
+      url: '../search/search?',
+      
+    })
   }
 })

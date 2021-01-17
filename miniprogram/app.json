@@ -2,8 +2,9 @@
   "pages": [
     "pro/index/index",
     "pro/sighup/sighup",
-    "pro/manage/manage",
-    "pro/search/search"
+    "pro/search/search",
+    "pro/edit/edit",
+    "pro/manage/manage"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

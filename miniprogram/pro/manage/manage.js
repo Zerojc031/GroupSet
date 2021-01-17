@@ -142,15 +142,15 @@ Page({
         console.log('arr:', that.data.arr)
         db.collection('control').doc('university').get({
           success: function (res) {
-            that.data.control=res.data
+            that.data.control = res.data
             console.log('查询control', res.data)
             for (let i = 0; i < that.data.arr.length; i++) {
-              that.data.control.uniList[i]=that.data.arr[i]
-              if(i==that.data.arr.length-1){
+              that.data.control.uniList[i] = that.data.arr[i]
+              if (i == that.data.arr.length - 1) {
                 that.setData({
                   control: that.data.control,
                 })
-                console.log('数组读取完毕',that.data.control.uniList)
+                console.log('数组读取完毕', that.data.control.uniList)
               }
             }
             // that.data.control.central = res.data.central
@@ -183,8 +183,8 @@ Page({
           }
         })
         that.setData({
-          arr:that.data.arr,
-          length:that.data.length
+          arr: that.data.arr,
+          length: that.data.length
         })
       },
       complete: function () {

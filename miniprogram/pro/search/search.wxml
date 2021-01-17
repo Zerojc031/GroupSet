@@ -1,1 +1,14 @@
-
+<input class="input-search" placeholder="🔍 大 学 搜 索" type="text" placeholder-class="placeholder" bindinput="bindSearchInput" confirm-type="search" bindconfirm="search" bindblur="search"></input>
+<!-- <button bindtap="search">搜索</button> -->
+<view class="view-intro">可搜索大学全名、简称、所在的省份及城市</view>
+<view class="view-resultTitle">搜索结果:</view>
+<view>
+  <view wx:for="{{showList}}" wx:if="{{index<pick}}" data-id="{{index}}" class="view-searchItems" bindtap="tap">
+    <view>
+      <text class="text-itemsName">{{item.name}}\n</text>
+    </view>
+    <view>
+      <text class="text-itemsProvince">{{item.province}}</text>
+    </view>
+  </view>
+</view>

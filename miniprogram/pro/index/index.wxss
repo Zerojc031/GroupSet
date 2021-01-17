@@ -20,6 +20,7 @@
   padding: 20rpx 15rpx;
   border-bottom: 1px solid #ededed;
   background-color: #f5f5f5;
+  font-size: 32rpx;
 }
 
 .menu-container .activity-menu {
@@ -40,6 +41,7 @@
   color: black;
   height: 50rpx;
   line-height: 50rpx;
+  font-size: 34rpx;
 }
 
 .menu-container .menu-right .menu-detail-list {
@@ -73,8 +75,8 @@
   font-size: 36rpx;
 }
 
-.text-province{
-  font-size:34rpx;
+.text-province {
+  font-size: 34rpx;
   color: #3d3d3d;
 }
 

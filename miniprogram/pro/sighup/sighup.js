@@ -57,14 +57,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
     var that = this
     if (!app.globalData.openid) {
       wx.cloud.callFunction({
@@ -74,7 +74,7 @@ Page({
           console.log('[云函数] [login] user openid: ', res.result.openid)
           app.globalData.openid = res.result.openid
           db.collection('university').doc(app.globalData.openid).get({
-            success: function(event) {
+            success: function (event) {
               console.log('查询成功', event.data)
               that.data.submit = event.data
               // that.data.submit.name = event.data.name
@@ -87,10 +87,10 @@ Page({
               // that.data.submit.isOnShow = event.data.isOnShow
               that.setData({
                 submit: that.data.submit,
-                isShowQRCode:that.data.submit.isShowQRCode
+                isShowQRCode: that.data.submit.isShowQRCode
               })
             },
-            fail: function(event) {
+            fail: function (event) {
               that.data.isDone = false
               that.data.submit.isShowQRCode = false
               that.data.submit.times = 0
@@ -106,7 +106,7 @@ Page({
       })
     } else {
       db.collection('university').doc(app.globalData.openid).get({
-        success: function(event) {
+        success: function (event) {
           console.log('查询成功', event.data)
           that.data.submit = event.data
           // that.data.submit.name = event.data.name
@@ -122,7 +122,7 @@ Page({
             isShowQRCode: that.data.submit.isShowQRCode
           })
         },
-        fail: function(event) {
+        fail: function (event) {
           that.data.isDone = false
           that.data.submit.isShowQRCode = false
           that.data.submit.times = 0
@@ -130,7 +130,7 @@ Page({
             submit: that.data.submit
           })
         },
-        complete: function() {
+        complete: function () {
           that.setData({
             submit: that.data.submit
           })
@@ -164,7 +164,7 @@ Page({
       })
     }
   },
-  getUserInfo: function(e) {
+  getUserInfo: function (e) {
     if (e.detail.userInfo) {
       app.globalData.userInfo = e.detail.userInfo
       this.setData({
@@ -173,19 +173,19 @@ Page({
       })
     }
   },
-  bindNameInput: function(e) {
+  bindNameInput: function (e) {
     this.data.submit.name = e.detail.value
   },
-  bindWechatIDInput: function(e) {
+  bindWechatIDInput: function (e) {
     this.data.submit.wechatID = e.detail.value
   },
-  radioChange: function(e) {
+  radioChange: function (e) {
     this.data.submit.tag = e.detail.value
   },
-  bindProvinceInput: function(e) {
+  bindProvinceInput: function (e) {
     this.data.submit.province = e.detail.value
   },
-  bindSwitchChange: function(e) {
+  bindSwitchChange: function (e) {
     if (this.data.submit.isShowQRCode == true) {
       this.data.submit.isShowQRCode = false
       this.setData({
@@ -203,19 +203,19 @@ Page({
     //   submit: this.data.submit
     // })
   },
-  upLoadQRCode: function(e) {
+  upLoadQRCode: function (e) {
     var that = this
     wx.chooseImage({
       count: 1,
       sizeType: 'compressed',
       // sourceType: 'album',
-      success: function(res) {
-        let tid=that.data.submit.times+1
-        let cloudPathID = 'university/' + app.globalData.openid+'-'+tid + '.jpg'
+      success: function (res) {
+        let tid = that.data.submit.times + 1
+        let cloudPathID = 'university/' + app.globalData.openid + '-' + tid + '.jpg'
         wx.cloud.uploadFile({
           cloudPath: cloudPathID,
           filePath: res.tempFilePaths[0],
-          success: function(event) {
+          success: function (event) {
             if (that.data.submit.src) {
               let srcOld = that.data.submit.src
               /*wx.cloud.deleteFile({
@@ -232,7 +232,7 @@ Page({
               duration: 3000,
             })
           },
-          fail: function(event) {
+          fail: function (event) {
             console.log('上传图片失败', event)
             wx.showToast({
               title: '失败请重新上传',
@@ -244,7 +244,7 @@ Page({
       },
     })
   },
-  submit: function() {
+  submit: function () {
     console.log('submit', this.data.submit)
     if (this.data.submit.wechatID == null || this.data.submit.province == null || this.data.submit.name == null || this.data.submit.tag == null) {
       wx.showToast({
@@ -266,7 +266,7 @@ Page({
         content: content,
         cancelText: '返回',
         confirmText: '提交',
-        success: function(res) {
+        success: function (res) {
           if (res.confirm) {
             if (that.data.isDone == false) {
               db.collection('university').add({
@@ -281,19 +281,19 @@ Page({
                   isShowQRCode: that.data.submit.isShowQRCode,
                   isOnShow: true
                 },
-                success: function(event) {
+                success: function (event) {
                   console.log('提交成功', event)
                   wx.showToast({
                     title: '提交成功',
                     duration: 2500,
-                    complete: function() {
+                    complete: function () {
                       wx.redirectTo({
                         url: 'sighup',
                       })
                     }
                   })
                 },
-                fail: function(event) {
+                fail: function (event) {
                   console.log('提交失败', event)
                   wx.showToast({
                     title: '失败#2',
@@ -314,19 +314,19 @@ Page({
                   isShowQRCode: that.data.submit.isShowQRCode,
                   isOnShow: true
                 },
-                success: function(event) {
+                success: function (event) {
                   console.log('提交成功', event)
                   wx.showToast({
                     title: '提交成功',
                     duration: 2500,
-                    complete: function() {
+                    complete: function () {
                       wx.redirectTo({
                         url: 'sighup',
                       })
                     }
                   })
                 },
-                fail: function(event) {
+                fail: function (event) {
                   console.log('提交失败', event)
                   wx.showToast({
                     title: '失败#3',
@@ -338,7 +338,7 @@ Page({
             }
           }
         },
-        fail: function(res) {
+        fail: function (res) {
           console.log('失败#1', res)
         }
       })

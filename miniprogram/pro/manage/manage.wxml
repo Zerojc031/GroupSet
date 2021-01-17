@@ -3,12 +3,14 @@
 	<button class="button-check" bindtap="check">更新</button>
 	<button class="button-upLoad" bindtap="upLoad">上传</button>
 	<view>
-		<view id="{{index}}" wx:for="{{arr}}" wx:for-index="idx" data-id="{{index}}" data-value="{{item._openid}}" class="view-items">
+		<view id="{{index}}" wx:for="{{arr}}" wx:for-index="idx" data-id="{{index}}" data-value="{{item._openid}}"
+			class="view-items">
 			<text>{{length-idx-1}}{{arr[length-idx-1].name}} {{arr[length-idx-1].tag}} {{arr[length-idx-1].province}}\n</text>
 			<text>wxid:{{arr[length-idx-1].wechatID}}\n</text>
 			<text>src:{{arr[length-idx-1].isShowQRCode}} times:{{arr[length-idx-1].times}}</text>
 			<view>
-				<button class="button-showAndHide" id="{{length-idx-1}}" wx:if="{{control.uniList[length-idx-1].isOnShow==true}}" bindtap="hide">撤下</button>
+				<button class="button-showAndHide" id="{{length-idx-1}}"
+					wx:if="{{control.uniList[length-idx-1].isOnShow==true}}" bindtap="hide">撤下</button>
 				<button class="button-showAndHide" id="{{length-idx-1}}" wx:else bindtap="show">发布</button>
 			</view>
 		</view>
