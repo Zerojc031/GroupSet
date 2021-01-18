@@ -62,7 +62,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '@金中高三ers，这是你需要的咨询群合集！',
+      path: '/pro/index/index'
+    }
   },
 
   bindSearchInput: function (e) {

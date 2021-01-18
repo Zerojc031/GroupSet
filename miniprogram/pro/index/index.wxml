@@ -12,8 +12,8 @@
 				bindtap="switchTab" class="menu-left-item {{curTabIndex === item.id?'activity-menu':''}}">{{item.name}}</view>
 			<view class="menu-left-item" bindtap="toSearch">搜索🔍</view>
 			<view class="menu-left-item" bindtap="toMore">更多</view>
-			<!-- <view class="menu-left-item" bindtap="toSubmit">注册</view> -->
-			<!-- <view class="menu-left-item" bindtap="toSighup">管理</view> -->
+			<view class="menu-left-item" bindtap="toSubmit">注册</view>
+			<view class="menu-left-item" bindtap="toSighup">管理</view>
 		</scroll-view>
 
 		<scroll-view class="menu-right" style="height: 100%;" scroll-into-view="{{toView}}" scroll-y bindscroll="scroll"

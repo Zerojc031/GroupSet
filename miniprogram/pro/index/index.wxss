@@ -36,7 +36,7 @@
 }
 
 .menu-container .menu-right .menu-detail-header {
-  background: #E0EEE0;
+  background: #dee6fa;
   padding: 20rpx 5rpx;
   color: black;
   height: 50rpx;
